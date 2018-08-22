@@ -15,7 +15,9 @@ class BooksController: UIViewController {
     
     var books: [Book] = []
     var selectedBook: Book?
+    
     let tempFile = AppFile()
+    var isFileExist: Bool = false
     
     private var downloadTask: URLSessionDownloadTask?
     
@@ -50,34 +52,9 @@ class BooksController: UIViewController {
 
 extension BooksController: BooksControllerDelegate {
     func didWriteToDocuments(data: Data) {
-        guard let title = selectedBook?.title else { return }
-        let filename = getDocumentsDirectory().appendingPathComponent("\(title)")
-        
-        let isFileExist = tempFile.exists(file: filename)
-        print(isFileExist)
-        if(isFileExist){
-            print("Open file.")
-        } else {
-            print("Write to file.")
-            _ = tempFile.writePdfFile(data: data, to: .Documents, withName: (selectedBook?.title)!)
-            _ = tempFile.list()
-        }
-        
-//        let fileManager = FileManager.default
-//        if fileManager.fileExists(atPath: filename.path) {
-//            print("FILE AVAILABLE. Open file!")
-//            do {
-//                print(filename.path)
-////                try fileManager.removeItem(atPath: filename.path)
-//            }
-////            catch let error as NSError {
-////                print("Ooops! Something went wrong: \(error)")
-////            }
-//        } else {
-//            print("File not available. Write to docs!")
-//            _ = tempFile.writePdfFile(data: data, to: .Documents, withName: (selectedBook?.title)!)
-//            _ = tempFile.list()
-//        }
+        print("Write to file.")
+        _ = tempFile.writePdfFile(data: data, to: .Documents, withName: (selectedBook?.title)!)
+        _ = tempFile.list()
     }
     
     func getDocumentsDirectory() -> URL {
@@ -104,7 +81,7 @@ extension BooksController: UITableViewDataSource, UITableViewDelegate {
         guard let title = selectedBook?.title else { return }
         let filename = getDocumentsDirectory().appendingPathComponent("\(title)")
         
-        let isFileExist = tempFile.exists(file: filename)
+        isFileExist = tempFile.exists(file: filename)
         if(isFileExist){
             print("Open file.")
             let pdfData = try! Data(contentsOf: filename)
@@ -125,10 +102,6 @@ extension BooksController: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         print("didFinishDownloading to: \(location)")
         
-//        guard let book = selectedBook else { return }
-//        let filename = book.title
-//        _ = tempFile.writePdfFile(location: location, to: .Documents, withName: filename)
-        
         let data = try! Data(contentsOf: location)
         handleOpenBook(data: data)
     }
@@ -136,6 +109,7 @@ extension BooksController: URLSessionDownloadDelegate {
     func handleOpenBook(data: Data){
         let controller = PDFViewController()
         controller.delegate = self
+        controller.isFileExist = isFileExist
         controller.pdfData = data
         let navController = UINavigationController(rootViewController: controller)
         present(navController, animated: true, completion: nil)

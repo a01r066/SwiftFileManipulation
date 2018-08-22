@@ -31,7 +31,9 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     
     var location: URL?
     var pdfData: Data?
-    var dataFile = AppFile()
+    
+    let tempFile = AppFile()
+    var isFileExist: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,27 +63,32 @@ class PDFViewController: UIViewController, PDFViewDelegate {
     }
     
     @objc func handleCancel(){
-        let alert = UIAlertController(title: "Thêm vào thư viện để đọc tiếp", message: "", preferredStyle: .actionSheet)
-        let agreeAction = UIAlertAction(title: "Đồng ý", style: .default) { (agreeAction) in
-            print("Agree. write to documents")
-            self.dismiss(animated: true, completion: {
-                self.delegate?.didWriteToDocuments(data: self.pdfData!)
-            })
+        print("Cancel")
+        if(isFileExist){
+            dismiss(animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Thêm vào thư viện để đọc tiếp", message: "", preferredStyle: .actionSheet)
+            let agreeAction = UIAlertAction(title: "Đồng ý", style: .default) { (agreeAction) in
+                print("Agree. write to documents")
+                self.dismiss(animated: true, completion: {
+                    self.delegate?.didWriteToDocuments(data: self.pdfData!)
+                })
+            }
+            let disagreeAction = UIAlertAction(title: "Không", style: .destructive) { (disagreeAction) in
+                print("Disagree")
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Huỷ", style: .cancel) { (cancelAction) in
+                print("Huỷ")
+            }
+            
+            alert.addAction(agreeAction)
+            alert.addAction(disagreeAction)
+            alert.addAction(cancelAction)
+            
+            present(alert, animated: true, completion: nil)
         }
-        let disagreeAction = UIAlertAction(title: "Không", style: .destructive) { (disagreeAction) in
-            print("Disagree")
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Huỷ", style: .cancel) { (cancelAction) in
-            print("Huỷ")
-        }
-        
-        alert.addAction(agreeAction)
-        alert.addAction(disagreeAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
     }
     
     func getDocumentsDirectory() -> URL {
