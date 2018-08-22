@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>782676487289-v0ltkeqd911le210n775kq4mbr92doub.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.782676487289-v0ltkeqd911le210n775kq4mbr92doub</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQ-1sryz7n_dfsKD6moAmkQxIn6syQ89E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>782676487289</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.appsviet.gia-lai-store</string>
+	<key>PROJECT_ID</key>
+	<string>hangsatgiasi</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hangsatgiasi.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:782676487289:ios:733fcd16ab30b7d3</string>
+	<key>DATABASE_URL</key>
+	<string>https://hangsatgiasi.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-3000732754644566~5563125554</string>
+</dict>
+</plist>
